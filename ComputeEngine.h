@@ -1,11 +1,7 @@
-//--------------------------------------------------------------------------------------
 // File: ComputeEngine.h
-//
 // This is an AMPC++ implementation of a compute shader. It transforms a shape with a
 // rotation of an angle THETA. 
-//
 // Copyright (c) Microsoft Corporation. All rights reserved.
-//--------------------------------------------------------------------------------------
 #pragma once
 
 #include <windows.h>
@@ -22,19 +18,16 @@ using namespace concurrency::direct3d;
 // Rotation angle
 #define THETA 3.1415f/1024  
 
-class AMP_compute_engine
-{
+class AMP_compute_engine{
 public:
-    AMP_compute_engine(ID3D11Device* d3ddevice) : m_accl_view(create_accelerator_view(d3ddevice))     {}
+    AMP_compute_engine(ID3D11Device* d3ddevice) : m_accl_view(create_accelerator_view(d3ddevice)){}
 
     void initialize_data(int num_elements, const Vertex2D* data)     {
         m_data = std::unique_ptr<array<Vertex2D,1>>(new array<Vertex2D, 1>(num_elements, data, m_accl_view));
     }
-
     HRESULT get_data_d3dbuffer(void** d3dbuffer) const    {
         return get_buffer(*m_data)->QueryInterface(__uuidof(ID3D11Buffer), (LPVOID*)d3dbuffer);
     }
-
     void run()    {
         array<Vertex2D, 1>& data_ref = *m_data;
 
@@ -52,7 +45,6 @@ public:
             data_ref[idx].Pos.x = pos.y * sin(THETA) + pos.x * cos(THETA);
         });
     }
-
 private:
     accelerator_view					m_accl_view;
     std::unique_ptr<array<Vertex2D, 1>>	m_data;

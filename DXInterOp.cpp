@@ -1,11 +1,7 @@
-//--------------------------------------------------------------------------------------
 // File: InterOp.cpp
-//
 // This application demonstrates the usage of AMP C++ interOp APIs with Direct3D 11. 
 // It displays the animation of a triangle rotation. 
-//
 // Copyright (c) Microsoft Corporation. All rights reserved.
-//--------------------------------------------------------------------------------------
 #include <windows.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -266,16 +262,14 @@ HRESULT CreateVertexShader(){
 	LPCSTR pProfile = (g_pd3dDevice->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0) ? "vs_5_0" : "vs_4_0";
 
 	hr = CompileShaderFromFile(L"DXInterOpPsVs.hlsl", "VS", pProfile, &pVSBlob);
-	if (FAILED(hr))
-	{
+	if (FAILED(hr))	{
 		MessageBox(NULL, L"The vertex shader in DXInterOpPsVs.hlsl cannot be compiled", L"Error", MB_OK);
 		return hr;
 	}
 
 	// Create the vertex shader
 	hr = g_pd3dDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader);
-	if (FAILED(hr))
-	{
+	if (FAILED(hr))	{
 		pVSBlob->Release();
 		return hr;
 	}
