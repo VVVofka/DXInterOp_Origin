@@ -1,4 +1,4 @@
-// File: InterOp.cpp
+// File: DxInterOp.cpp
 // This application demonstrates the usage of AMP C++ interOp APIs with Direct3D 11. 
 // It displays the animation of a triangle rotation. 
 // Copyright (c) Microsoft Corporation. All rights reserved.
@@ -409,7 +409,6 @@ HRESULT CreateComputeShader(){
 
 	return S_OK;
 }
-
 //--------------------------------------------------------------------------------------
 // Run compute shader to acquire data
 //--------------------------------------------------------------------------------------

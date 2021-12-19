@@ -4,7 +4,7 @@
 // This structured buffer is mapped to the ID3D11Buffer which is associated to the 
 // array used in the parallel_for_each kernel in the compute engine. The type of the 
 // RWStructured buffer is uint, which has the same memory size of type float.
-ByteAddressBuffer posBufVS : register( t0);
+ByteAddressBuffer posBufVS : register(t0);
 
 //--------------------------------------------------------------------------------------
 // Vertex Shader

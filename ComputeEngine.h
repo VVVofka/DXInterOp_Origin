@@ -28,7 +28,7 @@ public:
     HRESULT get_data_d3dbuffer(void** d3dbuffer) const    {
         return get_buffer(*m_data)->QueryInterface(__uuidof(ID3D11Buffer), (LPVOID*)d3dbuffer);
     }
-    void run()    {
+    void run(){
         array<Vertex2D, 1>& data_ref = *m_data;
 
         // Transform the vertex data on the accelerator which is associated with the array data_ref. 
