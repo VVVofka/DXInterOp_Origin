@@ -13,7 +13,6 @@
 #include <exception>
 #include "DXInterOp.h"
 #include "ComputeEngine.h"
-
 //--------------------------------------------------------------------------------------
 // Global Variables
 //--------------------------------------------------------------------------------------
@@ -36,7 +35,6 @@ ID3D11ShaderResourceView* g_pVertexPosBufferRV = NULL;
 ID3D11UnorderedAccessView* g_pVertexPosBufferUAV = NULL;
 
 AMP_compute_engine* g_pAMPComputeEngine = NULL;
-
 //--------------------------------------------------------------------------------------
 // Forward declarations
 //--------------------------------------------------------------------------------------
@@ -50,7 +48,6 @@ void                ComputeRenderData();
 void                Render();
 void                CleanupDevice();
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-
 //--------------------------------------------------------------------------------------
 // Entry point to the program. Initializes everything and goes into a message processing 
 // loop. Idle time is used to render the scene.
@@ -80,8 +77,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	}
 	CleanupDevice();
 	return (int)msg.wParam;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Register class and create window
 //--------------------------------------------------------------------------------------
 HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow){
@@ -109,26 +105,21 @@ HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow){
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInstance,
 		NULL);
-	if (!g_hWnd)  return E_FAIL;
-
+	if (!g_hWnd)  
+		return E_FAIL;
 	ShowWindow(g_hWnd, nCmdShow);
-
 	return S_OK;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Create Direct3D device and shaders
 //--------------------------------------------------------------------------------------
 HRESULT InitDevice(){
 	HRESULT hr = S_OK;
-
 	RETURN_IF_FAIL(CreateSwapChain());
 	RETURN_IF_FAIL(CreateComputeShader());
 	RETURN_IF_FAIL(CreateVertexShader());
 	RETURN_IF_FAIL(CreatePixelShader());
-
 	return hr;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Clean up the objects we've created
 //--------------------------------------------------------------------------------------
 void CleanupDevice(){
@@ -145,8 +136,7 @@ void CleanupDevice(){
 	SAFE_RELEASE(g_pSwapChain);
 	SAFE_RELEASE(g_pImmediateContext);
 	SAFE_RELEASE(g_pd3dDevice);
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Helper for compiling shaders with D3DX11
 //--------------------------------------------------------------------------------------
 HRESULT CompileShaderFromFile(LPCWSTR szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut){
@@ -177,8 +167,7 @@ HRESULT CompileShaderFromFile(LPCWSTR szFileName, LPCSTR szEntryPoint, LPCSTR sz
 	}
 	SAFE_RELEASE(pErrorBlob);
 	return hr;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Create Direct3D device swap chain
 //--------------------------------------------------------------------------------------
 HRESULT CreateSwapChain(){
@@ -249,10 +238,8 @@ HRESULT CreateSwapChain(){
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	g_pImmediateContext->RSSetViewports(1, &vp);
-
 	return hr;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Create Vertex shader
 //--------------------------------------------------------------------------------------
 HRESULT CreateVertexShader(){
@@ -307,8 +294,7 @@ HRESULT CreateVertexShader(){
 	g_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	return hr;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Create pixel shader
 //--------------------------------------------------------------------------------------
 HRESULT CreatePixelShader(){
@@ -329,8 +315,7 @@ HRESULT CreatePixelShader(){
 	pPSBlob->Release();
 
 	return hr;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Called every time the application receives a message
 //--------------------------------------------------------------------------------------
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
@@ -348,8 +333,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Render a frame
 //--------------------------------------------------------------------------------------
 void Render(){
@@ -376,9 +360,7 @@ void Render(){
 
 	// Present the information rendered to the back buffer to the front buffer (the screen)
 	g_pSwapChain->Present(0, 0);
-}
-
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Create Compute shader
 //--------------------------------------------------------------------------------------
 HRESULT CreateComputeShader(){
@@ -406,10 +388,8 @@ HRESULT CreateComputeShader(){
 	DescRV.Buffer.FirstElement = 0;
 	DescRV.Buffer.NumElements = descBuf.ByteWidth / sizeof(int);
 	RETURN_IF_FAIL(g_pd3dDevice->CreateShaderResourceView(g_pVertexPosBuffer, &DescRV, &g_pVertexPosBufferRV));
-
 	return S_OK;
-}
-//--------------------------------------------------------------------------------------
+}//--------------------------------------------------------------------------------------
 // Run compute shader to acquire data
 //--------------------------------------------------------------------------------------
 void ComputeRenderData(){
